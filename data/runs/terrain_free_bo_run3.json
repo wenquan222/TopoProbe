@@ -401,6 +401,5 @@
   "48": 126,
   "64": 126
  },
- "cpa_batches": 1,
- "cpa_traces_per_batch": 1024
+ "validation_traces": 1024
 }

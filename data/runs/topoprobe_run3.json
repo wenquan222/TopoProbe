@@ -399,8 +399,7 @@
  "recovery_traces": {
   "32": 95,
   "48": 95,
-  "64": 32
+  "64": 36
  },
- "cpa_batches": 3,
- "cpa_traces_per_batch": 8192
+ "validation_traces": 8192
 }

@@ -9,7 +9,7 @@
   preprocess(...)            baseline subtraction (-1.8..-0.2 us) and analysis window (0..20 us)
 
 Traces are traces-by-samples arrays in mV with a time axis in microseconds relative to the trigger.
-`checks/score_check.py` recomputes recorded scores and recovery counts from raw captures.
+Recorded scores and recovery counts were recomputed from the raw captures with this module.
 """
 import numpy as np
 

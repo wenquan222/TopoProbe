@@ -1,15 +1,15 @@
 """TopoBO: terrain-guided Bayesian-optimization search over board positions.
 
 Implements Section III-C of the paper:
-  * terrain groups and priority g(p)                      (Eqs. 3-4)
-  * terrain-stratified farthest-point initialization       (Eq. 5)
+  * terrain groups and priority g(p)                      (Eqs. 2, 4)
+  * terrain-stratified farthest-point initialization       (Eq. 3)
   * Gibbs-kernel GP with terrain-shortened length scale   (Eqs. 6-7)
   * noisy expected improvement over the joint posterior   (Eq. 8)
   * coverage-weighted selection                            (Eqs. 9-10)
 
 `TopoBO(..., priority=zeros, initial=uniform)` is the terrain-free ablation of Section IV-C.
-All arithmetic follows the code that produced the paper's runs; `checks/replay_topobo.py`
-confirms that every recorded query 17-64 of the ten TopoProbe and terrain-free runs is reproduced.
+All arithmetic follows the code that produced the paper's runs; `checks/replay_all.py`
+confirms that every recorded query of the ten TopoProbe and terrain-free runs is reproduced.
 """
 import numpy as np
 from scipy.linalg import cho_factor, cho_solve, cholesky, solve_triangular

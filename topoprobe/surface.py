@@ -9,7 +9,7 @@
 
 Scan geometry of the paper: X 64-110 mm, Y 69-106 mm, Y line pitch 0.01 mm, X bins 0.0495 mm
 (1.5 x frame spacing at 5 mm/s), unidirectional lines from large to small X.
-`checks/surface_check.py` rebuilds archived rows and the 1748 candidate heights.
+Archived scan rows and the 1748 candidate heights were rebuilt from the raw laser frames with this module.
 """
 import numpy as np
 from scipy.interpolate import RegularGridInterpolator

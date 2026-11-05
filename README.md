@@ -15,9 +15,9 @@ recommended position (lower is better):
 | Method | 32 queries | 48 queries | 64 queries |
 |---|---:|---:|---:|
 | SCNIFFER | 363.4 | 363.4 | 363.4 |
-| Swarm in EM Hay | 1060.8 | 1677.6 | 1705.2 |
+| Swarm in EM Hay | 1180.2 | 1841.2 | 1868.8 |
 | Terrain-free BO (ablation) | 105.2 | 102.8 | 97.0 |
-| **TopoProbe** | 159.2 | **77.2** | **46.8** |
+| **TopoProbe** | 172.6 | **80.2** | **50.6** |
 
 Gap ablation (fixed probe plane vs. surface following, 0.5 mm gap, first checkpoint with all 16 key
 bytes ranked first, three repetitions):
@@ -47,7 +47,7 @@ topoprobe/
   surface.py       height map from raw laser frames, local-median field, registration to the stage (Eq. 1),
                    1 mm candidate grid
   topobo.py        TopoBO: terrain groups and priority, initialization, Gibbs-kernel GP, noisy EI,
-                   coverage-weighted selection (Eqs. 3-10); terrain-free ablation = priority 0, uniform start
+                   coverage-weighted selection (Eqs. 2-4, 6-10); terrain-free ablation = priority 0, uniform start
   baselines.py     SCNIFFER and Swarm in EM Hay on the same grid
   leakage.py       SNR search score (Eq. 5), first-round CPA, traces to full-key recovery, capture loader
   hardware.py      stage, laser, AES target with PicoScope capture, terrain-following executor
@@ -68,9 +68,9 @@ Run records are named `<method>_run<k>.json`. The TopoProbe and Swarm runs with 
 session, as did SCNIFFER run 4. The SCNIFFER score and the TopoProbe score are the same (median over the 16
 key bytes of the peak Hamming-weight SNR); Swarm uses its own entropy contrast score.
 
-Recovery traces come from fresh validation batches at the recommended positions: in runs 1-3, TopoProbe and
-Swarm recommendations were validated with three 8192-trace batches and the smallest value is reported. All
-other validations used one batch of 1024 traces, or 4096 for Swarm.
+Recovery traces come from one fresh validation batch at each recommended position: 8192 traces for the
+TopoProbe and Swarm recommendations of runs 1-3, 4096 for the other Swarm runs, and 1024 otherwise
+(`validation_traces` in each record).
 
 Candidate heights in the run records include a common session correction of +0.00308 mm relative to
 `candidates.csv`, measured at the reference sites before the runs.

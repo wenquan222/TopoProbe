@@ -397,10 +397,9 @@
   "64": "f27_20"
  },
  "recovery_traces": {
-  "32": 2285,
-  "48": 2606,
-  "64": 2606
+  "32": 2862,
+  "48": 3336,
+  "64": 3336
  },
- "cpa_batches": 3,
- "cpa_traces_per_batch": 8192
+ "validation_traces": 8192
 }

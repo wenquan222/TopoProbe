@@ -3,19 +3,19 @@
   "file": "runs/topoprobe_run1.json",
   "method": "topoprobe",
   "run": 1,
-  "recovery_64": 33
+  "recovery_64": 36
  },
  {
   "file": "runs/topoprobe_run2.json",
   "method": "topoprobe",
   "run": 2,
-  "recovery_64": 99
+  "recovery_64": 111
  },
  {
   "file": "runs/topoprobe_run3.json",
   "method": "topoprobe",
   "run": 3,
-  "recovery_64": 32
+  "recovery_64": 36
  },
  {
   "file": "runs/topoprobe_run4.json",
@@ -33,13 +33,13 @@
   "file": "runs/swarm_run1.json",
   "method": "swarm",
   "run": 1,
-  "recovery_64": 3440
+  "recovery_64": 3528
  },
  {
   "file": "runs/swarm_run2.json",
   "method": "swarm",
   "run": 2,
-  "recovery_64": 2606
+  "recovery_64": 3336
  },
  {
   "file": "runs/swarm_run3.json",

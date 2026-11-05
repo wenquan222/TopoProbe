@@ -7,7 +7,7 @@ published methods with the settings stated in Section IV-A:
   Swarm     three uniformly random particles; score = max(0, H(trace) - mean H(corner)), with
             H the matrix-based Renyi entropy of order 1.01 computed on 256-trace blocks; four
             corner background batches of 256 traces precede the search.
-`checks/replay_baselines.py` confirms every recorded query of the ten baseline runs.
+`checks/replay_all.py` confirms every recorded query of the ten baseline runs.
 """
 import numpy as np
 from scipy.spatial.distance import cdist, pdist

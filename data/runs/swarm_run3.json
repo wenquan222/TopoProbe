@@ -397,10 +397,9 @@
   "64": "f21_02"
  },
  "recovery_traces": {
-  "32": 156,
+  "32": 175,
   "48": 128,
   "64": 128
  },
- "cpa_batches": 3,
- "cpa_traces_per_batch": 8192
+ "validation_traces": 8192
 }
