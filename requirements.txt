@@ -1,0 +1,6 @@
+numpy
+scipy
+threadpoolctl
+# bench only
+pyserial
+picosdk

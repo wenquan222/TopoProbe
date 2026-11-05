@@ -1,0 +1,406 @@
+{
+ "method": "swarm",
+ "run": 2,
+ "seed": 2026110102,
+ "gap_mm": 1.0,
+ "traces_per_query": 1024,
+ "score": "entropy contrast (Swarm)",
+ "queries": [
+  {
+   "query": 1,
+   "candidate": "f27_03",
+   "route": "entropy_fitness",
+   "score": 0.03549336819786375
+  },
+  {
+   "query": 2,
+   "candidate": "f25_32",
+   "route": "entropy_fitness",
+   "score": 0.27782420793966156
+  },
+  {
+   "query": 3,
+   "candidate": "f03_33",
+   "route": "entropy_fitness",
+   "score": 0.05800553227140348
+  },
+  {
+   "query": 4,
+   "candidate": "f25_27",
+   "route": "entropy_fitness",
+   "score": 0.6536026953042282
+  },
+  {
+   "query": 5,
+   "candidate": "f25_32",
+   "route": "entropy_fitness",
+   "score": 0.2803112576046718
+  },
+  {
+   "query": 6,
+   "candidate": "f32_32",
+   "route": "entropy_fitness",
+   "score": 0.21457335199909977
+  },
+  {
+   "query": 7,
+   "candidate": "f24_37",
+   "route": "entropy_fitness",
+   "score": 0.004938231534539872
+  },
+  {
+   "query": 8,
+   "candidate": "f25_25",
+   "route": "entropy_fitness",
+   "score": 1.3880633928704367
+  },
+  {
+   "query": 9,
+   "candidate": "f42_32",
+   "route": "entropy_fitness",
+   "score": 0.14149459776278506
+  },
+  {
+   "query": 10,
+   "candidate": "f24_34",
+   "route": "entropy_fitness",
+   "score": 0.561778106127506
+  },
+  {
+   "query": 11,
+   "candidate": "f25_20",
+   "route": "entropy_fitness",
+   "score": 2.0574237042779995
+  },
+  {
+   "query": 12,
+   "candidate": "f45_24",
+   "route": "entropy_fitness",
+   "score": 0.0743901747206519
+  },
+  {
+   "query": 13,
+   "candidate": "f26_19",
+   "route": "entropy_fitness",
+   "score": 2.064168392886851
+  },
+  {
+   "query": 14,
+   "candidate": "f25_17",
+   "route": "entropy_fitness",
+   "score": 1.9306830856650163
+  },
+  {
+   "query": 15,
+   "candidate": "f23_18",
+   "route": "entropy_fitness",
+   "score": 0.9348169420923524
+  },
+  {
+   "query": 16,
+   "candidate": "f28_08",
+   "route": "entropy_fitness",
+   "score": 0.12545698977374897
+  },
+  {
+   "query": 17,
+   "candidate": "f26_15",
+   "route": "entropy_fitness",
+   "score": 1.7661932881379603
+  },
+  {
+   "query": 18,
+   "candidate": "f10_15",
+   "route": "entropy_fitness",
+   "score": 0.15953568407819052
+  },
+  {
+   "query": 19,
+   "candidate": "f28_15",
+   "route": "entropy_fitness",
+   "score": 1.2710781585865414
+  },
+  {
+   "query": 20,
+   "candidate": "f25_18",
+   "route": "entropy_fitness",
+   "score": 1.9836110010022663
+  },
+  {
+   "query": 21,
+   "candidate": "f15_19",
+   "route": "entropy_fitness",
+   "score": 0.49448196449272697
+  },
+  {
+   "query": 22,
+   "candidate": "f25_26",
+   "route": "entropy_fitness",
+   "score": 1.034466122772248
+  },
+  {
+   "query": 23,
+   "candidate": "f24_23",
+   "route": "entropy_fitness",
+   "score": 1.9325684853649403
+  },
+  {
+   "query": 24,
+   "candidate": "f32_21",
+   "route": "entropy_fitness",
+   "score": 0.3171482421033327
+  },
+  {
+   "query": 25,
+   "candidate": "f25_23",
+   "route": "entropy_fitness",
+   "score": 1.9221580188770377
+  },
+  {
+   "query": 26,
+   "candidate": "f24_22",
+   "route": "entropy_fitness",
+   "score": 2.0310129947986404
+  },
+  {
+   "query": 27,
+   "candidate": "f26_18",
+   "route": "entropy_fitness",
+   "score": 2.050375905971036
+  },
+  {
+   "query": 28,
+   "candidate": "f27_15",
+   "route": "entropy_fitness",
+   "score": 1.5743583763045612
+  },
+  {
+   "query": 29,
+   "candidate": "f26_18",
+   "route": "entropy_fitness",
+   "score": 2.0512048892491306
+  },
+  {
+   "query": 30,
+   "candidate": "f22_16",
+   "route": "entropy_fitness",
+   "score": 0.04031924290988109
+  },
+  {
+   "query": 31,
+   "candidate": "f28_18",
+   "route": "entropy_fitness",
+   "score": 2.010639189557068
+  },
+  {
+   "query": 32,
+   "candidate": "f26_18",
+   "route": "entropy_fitness",
+   "score": 2.0507012847470762
+  },
+  {
+   "query": 33,
+   "candidate": "f23_17",
+   "route": "entropy_fitness",
+   "score": 0.6174752629661184
+  },
+  {
+   "query": 34,
+   "candidate": "f29_21",
+   "route": "entropy_fitness",
+   "score": 1.91349665336145
+  },
+  {
+   "query": 35,
+   "candidate": "f25_19",
+   "route": "entropy_fitness",
+   "score": 2.0245065100520088
+  },
+  {
+   "query": 36,
+   "candidate": "f30_19",
+   "route": "entropy_fitness",
+   "score": 0.6656775398767152
+  },
+  {
+   "query": 37,
+   "candidate": "f24_20",
+   "route": "entropy_fitness",
+   "score": 1.9415317143453885
+  },
+  {
+   "query": 38,
+   "candidate": "f24_20",
+   "route": "entropy_fitness",
+   "score": 1.9442363402242453
+  },
+  {
+   "query": 39,
+   "candidate": "f28_19",
+   "route": "entropy_fitness",
+   "score": 2.0558306690902697
+  },
+  {
+   "query": 40,
+   "candidate": "f24_19",
+   "route": "entropy_fitness",
+   "score": 1.6799667783699481
+  },
+  {
+   "query": 41,
+   "candidate": "f27_20",
+   "route": "entropy_fitness",
+   "score": 2.0655955159137998
+  },
+  {
+   "query": 42,
+   "candidate": "f24_19",
+   "route": "entropy_fitness",
+   "score": 1.6806499990313684
+  },
+  {
+   "query": 43,
+   "candidate": "f27_20",
+   "route": "entropy_fitness",
+   "score": 2.0655646451199074
+  },
+  {
+   "query": 44,
+   "candidate": "f29_20",
+   "route": "entropy_fitness",
+   "score": 1.8932293997275509
+  },
+  {
+   "query": 45,
+   "candidate": "f30_19",
+   "route": "entropy_fitness",
+   "score": 0.6699625862241805
+  },
+  {
+   "query": 46,
+   "candidate": "f29_21",
+   "route": "entropy_fitness",
+   "score": 1.914040208262739
+  },
+  {
+   "query": 47,
+   "candidate": "f27_20",
+   "route": "entropy_fitness",
+   "score": 2.0655378529736304
+  },
+  {
+   "query": 48,
+   "candidate": "f31_20",
+   "route": "entropy_fitness",
+   "score": 0.09508577654344652
+  },
+  {
+   "query": 49,
+   "candidate": "f27_20",
+   "route": "entropy_fitness",
+   "score": 2.0655262112849897
+  },
+  {
+   "query": 50,
+   "candidate": "f26_20",
+   "route": "entropy_fitness",
+   "score": 2.0653576881680777
+  },
+  {
+   "query": 51,
+   "candidate": "f29_20",
+   "route": "entropy_fitness",
+   "score": 1.9028357993367804
+  },
+  {
+   "query": 52,
+   "candidate": "f26_20",
+   "route": "entropy_fitness",
+   "score": 2.0654233500860943
+  },
+  {
+   "query": 53,
+   "candidate": "f27_20",
+   "route": "entropy_fitness",
+   "score": 2.0655811422615624
+  },
+  {
+   "query": 54,
+   "candidate": "f27_19",
+   "route": "entropy_fitness",
+   "score": 2.0652831067518753
+  },
+  {
+   "query": 55,
+   "candidate": "f27_19",
+   "route": "entropy_fitness",
+   "score": 2.065355868843654
+  },
+  {
+   "query": 56,
+   "candidate": "f27_20",
+   "route": "entropy_fitness",
+   "score": 2.065599778919403
+  },
+  {
+   "query": 57,
+   "candidate": "f25_19",
+   "route": "entropy_fitness",
+   "score": 2.0232290848009367
+  },
+  {
+   "query": 58,
+   "candidate": "f28_20",
+   "route": "entropy_fitness",
+   "score": 2.0594517474552854
+  },
+  {
+   "query": 59,
+   "candidate": "f28_20",
+   "route": "entropy_fitness",
+   "score": 2.0594266629662656
+  },
+  {
+   "query": 60,
+   "candidate": "f27_21",
+   "route": "entropy_fitness",
+   "score": 2.0587805786011653
+  },
+  {
+   "query": 61,
+   "candidate": "f27_20",
+   "route": "entropy_fitness",
+   "score": 2.0655919211393523
+  },
+  {
+   "query": 62,
+   "candidate": "f27_20",
+   "route": "entropy_fitness",
+   "score": 2.0654949728948093
+  },
+  {
+   "query": 63,
+   "candidate": "f28_21",
+   "route": "entropy_fitness",
+   "score": 2.041812850033784
+  },
+  {
+   "query": 64,
+   "candidate": "f27_20",
+   "route": "entropy_fitness",
+   "score": 2.065448891156446
+  }
+ ],
+ "recommendations": {
+  "32": "f26_19",
+  "48": "f27_20",
+  "64": "f27_20"
+ },
+ "recovery_traces": {
+  "32": 2285,
+  "48": 2606,
+  "64": 2606
+ },
+ "cpa_batches": 3,
+ "cpa_traces_per_batch": 8192
+}

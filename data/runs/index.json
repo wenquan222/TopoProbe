@@ -1,0 +1,122 @@
+[
+ {
+  "file": "runs/topoprobe_run1.json",
+  "method": "topoprobe",
+  "run": 1,
+  "recovery_64": 33
+ },
+ {
+  "file": "runs/topoprobe_run2.json",
+  "method": "topoprobe",
+  "run": 2,
+  "recovery_64": 99
+ },
+ {
+  "file": "runs/topoprobe_run3.json",
+  "method": "topoprobe",
+  "run": 3,
+  "recovery_64": 32
+ },
+ {
+  "file": "runs/topoprobe_run4.json",
+  "method": "topoprobe",
+  "run": 4,
+  "recovery_64": 30
+ },
+ {
+  "file": "runs/topoprobe_run5.json",
+  "method": "topoprobe",
+  "run": 5,
+  "recovery_64": 40
+ },
+ {
+  "file": "runs/swarm_run1.json",
+  "method": "swarm",
+  "run": 1,
+  "recovery_64": 3440
+ },
+ {
+  "file": "runs/swarm_run2.json",
+  "method": "swarm",
+  "run": 2,
+  "recovery_64": 2606
+ },
+ {
+  "file": "runs/swarm_run3.json",
+  "method": "swarm",
+  "run": 3,
+  "recovery_64": 128
+ },
+ {
+  "file": "runs/swarm_run4.json",
+  "method": "swarm",
+  "run": 4,
+  "recovery_64": 1909
+ },
+ {
+  "file": "runs/swarm_run5.json",
+  "method": "swarm",
+  "run": 5,
+  "recovery_64": 443
+ },
+ {
+  "file": "runs/scniffer_run4.json",
+  "method": "scniffer",
+  "run": 4,
+  "recovery_64": 927
+ },
+ {
+  "file": "runs/scniffer_run1.json",
+  "method": "scniffer",
+  "run": 1,
+  "recovery_64": 207
+ },
+ {
+  "file": "runs/scniffer_run2.json",
+  "method": "scniffer",
+  "run": 2,
+  "recovery_64": 220
+ },
+ {
+  "file": "runs/scniffer_run3.json",
+  "method": "scniffer",
+  "run": 3,
+  "recovery_64": 319
+ },
+ {
+  "file": "runs/scniffer_run5.json",
+  "method": "scniffer",
+  "run": 5,
+  "recovery_64": 144
+ },
+ {
+  "file": "runs/terrain_free_bo_run1.json",
+  "method": "terrain_free_bo",
+  "run": 1,
+  "recovery_64": 73
+ },
+ {
+  "file": "runs/terrain_free_bo_run2.json",
+  "method": "terrain_free_bo",
+  "run": 2,
+  "recovery_64": 134
+ },
+ {
+  "file": "runs/terrain_free_bo_run3.json",
+  "method": "terrain_free_bo",
+  "run": 3,
+  "recovery_64": 126
+ },
+ {
+  "file": "runs/terrain_free_bo_run4.json",
+  "method": "terrain_free_bo",
+  "run": 4,
+  "recovery_64": 32
+ },
+ {
+  "file": "runs/terrain_free_bo_run5.json",
+  "method": "terrain_free_bo",
+  "run": 5,
+  "recovery_64": 120
+ }
+]

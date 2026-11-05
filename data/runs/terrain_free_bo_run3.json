@@ -1,0 +1,406 @@
+{
+ "method": "terrain_free_bo",
+ "run": 3,
+ "seed": 2026110503,
+ "gap_mm": 1.0,
+ "traces_per_query": 1024,
+ "score": "median peak HW-SNR (Eq. 5)",
+ "queries": [
+  {
+   "query": 1,
+   "candidate": "f44_24",
+   "route": "initial",
+   "score": 0.029437209181624853
+  },
+  {
+   "query": 2,
+   "candidate": "f14_12",
+   "route": "initial",
+   "score": 0.030095372538831967
+  },
+  {
+   "query": 3,
+   "candidate": "f16_17",
+   "route": "initial",
+   "score": 0.028644214716411622
+  },
+  {
+   "query": 4,
+   "candidate": "f40_08",
+   "route": "initial",
+   "score": 0.029367945512563883
+  },
+  {
+   "query": 5,
+   "candidate": "f04_07",
+   "route": "initial",
+   "score": 0.028832183583361228
+  },
+  {
+   "query": 6,
+   "candidate": "f03_13",
+   "route": "initial",
+   "score": 0.026822559863269653
+  },
+  {
+   "query": 7,
+   "candidate": "f37_35",
+   "route": "initial",
+   "score": 0.030029877905283338
+  },
+  {
+   "query": 8,
+   "candidate": "f19_18",
+   "route": "initial",
+   "score": 0.028705159174763673
+  },
+  {
+   "query": 9,
+   "candidate": "f25_13",
+   "route": "initial",
+   "score": 0.31714949834004297
+  },
+  {
+   "query": 10,
+   "candidate": "f18_03",
+   "route": "initial",
+   "score": 0.033511780532630424
+  },
+  {
+   "query": 11,
+   "candidate": "f25_12",
+   "route": "initial",
+   "score": 0.2380277661223575
+  },
+  {
+   "query": 12,
+   "candidate": "f40_33",
+   "route": "initial",
+   "score": 0.029848919157993224
+  },
+  {
+   "query": 13,
+   "candidate": "f42_22",
+   "route": "initial",
+   "score": 0.030217989056934458
+  },
+  {
+   "query": 14,
+   "candidate": "f34_12",
+   "route": "initial",
+   "score": 0.03079503795418813
+  },
+  {
+   "query": 15,
+   "candidate": "f33_27",
+   "route": "initial",
+   "score": 0.029474394023038558
+  },
+  {
+   "query": 16,
+   "candidate": "f17_13",
+   "route": "initial",
+   "score": 0.027292862052688875
+  },
+  {
+   "query": 17,
+   "candidate": "f26_13",
+   "route": "weighted_NEI",
+   "score": 0.07730940555373256
+  },
+  {
+   "query": 18,
+   "candidate": "f24_13",
+   "route": "weighted_NEI",
+   "score": 0.4044251118842817
+  },
+  {
+   "query": 19,
+   "candidate": "f24_14",
+   "route": "weighted_NEI",
+   "score": 0.3130457443749953
+  },
+  {
+   "query": 20,
+   "candidate": "f23_13",
+   "route": "weighted_NEI",
+   "score": 0.24405038661271325
+  },
+  {
+   "query": 21,
+   "candidate": "f24_12",
+   "route": "weighted_NEI",
+   "score": 0.3885864877437566
+  },
+  {
+   "query": 22,
+   "candidate": "f23_11",
+   "route": "weighted_NEI",
+   "score": 0.4371831268505446
+  },
+  {
+   "query": 23,
+   "candidate": "f23_10",
+   "route": "weighted_NEI",
+   "score": 0.45011450803206166
+  },
+  {
+   "query": 24,
+   "candidate": "f22_10",
+   "route": "weighted_NEI",
+   "score": 0.25271089651044537
+  },
+  {
+   "query": 25,
+   "candidate": "f24_10",
+   "route": "weighted_NEI",
+   "score": 0.2968488048493728
+  },
+  {
+   "query": 26,
+   "candidate": "f23_09",
+   "route": "weighted_NEI",
+   "score": 0.4177848418199104
+  },
+  {
+   "query": 27,
+   "candidate": "f23_08",
+   "route": "weighted_NEI",
+   "score": 0.33378791649697126
+  },
+  {
+   "query": 28,
+   "candidate": "f25_08",
+   "route": "weighted_NEI",
+   "score": 0.03147847770859127
+  },
+  {
+   "query": 29,
+   "candidate": "f22_08",
+   "route": "weighted_NEI",
+   "score": 0.3630036894621518
+  },
+  {
+   "query": 30,
+   "candidate": "f21_07",
+   "route": "weighted_NEI",
+   "score": 0.21961420689634792
+  },
+  {
+   "query": 31,
+   "candidate": "f25_17",
+   "route": "weighted_NEI",
+   "score": 0.07295389469503433
+  },
+  {
+   "query": 32,
+   "candidate": "f00_00",
+   "route": "weighted_NEI",
+   "score": 0.02924832920705243
+  },
+  {
+   "query": 33,
+   "candidate": "f00_20",
+   "route": "weighted_NEI",
+   "score": 0.028496263912456347
+  },
+  {
+   "query": 34,
+   "candidate": "f00_28",
+   "route": "weighted_NEI",
+   "score": 0.029976100651207767
+  },
+  {
+   "query": 35,
+   "candidate": "f23_05",
+   "route": "weighted_NEI",
+   "score": 0.04886369449945804
+  },
+  {
+   "query": 36,
+   "candidate": "f18_08",
+   "route": "weighted_NEI",
+   "score": 0.030083102297836714
+  },
+  {
+   "query": 37,
+   "candidate": "f00_36",
+   "route": "weighted_NEI",
+   "score": 0.028496173377531922
+  },
+  {
+   "query": 38,
+   "candidate": "f08_23",
+   "route": "weighted_NEI",
+   "score": 0.031029154872628167
+  },
+  {
+   "query": 39,
+   "candidate": "f08_31",
+   "route": "weighted_NEI",
+   "score": 0.030435461634047693
+  },
+  {
+   "query": 40,
+   "candidate": "f09_00",
+   "route": "weighted_NEI",
+   "score": 0.028558493995810043
+  },
+  {
+   "query": 41,
+   "candidate": "f13_37",
+   "route": "weighted_NEI",
+   "score": 0.028338981152386478
+  },
+  {
+   "query": 42,
+   "candidate": "f24_11",
+   "route": "weighted_NEI",
+   "score": 0.3993480915818597
+  },
+  {
+   "query": 43,
+   "candidate": "f16_26",
+   "route": "weighted_NEI",
+   "score": 0.06513954583061296
+  },
+  {
+   "query": 44,
+   "candidate": "f20_33",
+   "route": "weighted_NEI",
+   "score": 0.02883311385340516
+  },
+  {
+   "query": 45,
+   "candidate": "f25_24",
+   "route": "weighted_NEI",
+   "score": 0.0351281423709011
+  },
+  {
+   "query": 46,
+   "candidate": "f27_37",
+   "route": "weighted_NEI",
+   "score": 0.031027827966721114
+  },
+  {
+   "query": 47,
+   "candidate": "f29_00",
+   "route": "weighted_NEI",
+   "score": 0.028957435967850616
+  },
+  {
+   "query": 48,
+   "candidate": "f33_20",
+   "route": "weighted_NEI",
+   "score": 0.031628655913965784
+  },
+  {
+   "query": 49,
+   "candidate": "f38_00",
+   "route": "weighted_NEI",
+   "score": 0.028451398804398044
+  },
+  {
+   "query": 50,
+   "candidate": "f42_15",
+   "route": "weighted_NEI",
+   "score": 0.028743702126697912
+  },
+  {
+   "query": 51,
+   "candidate": "f45_03",
+   "route": "weighted_NEI",
+   "score": 0.03036036243966635
+  },
+  {
+   "query": 52,
+   "candidate": "f32_06",
+   "route": "weighted_NEI",
+   "score": 0.029125883465528232
+  },
+  {
+   "query": 53,
+   "candidate": "f27_31",
+   "route": "weighted_NEI",
+   "score": 0.02945988126042215
+  },
+  {
+   "query": 54,
+   "candidate": "f11_06",
+   "route": "weighted_NEI",
+   "score": 0.02872171041880319
+  },
+  {
+   "query": 55,
+   "candidate": "f45_37",
+   "route": "weighted_NEI",
+   "score": 0.028211705037585025
+  },
+  {
+   "query": 56,
+   "candidate": "f22_09",
+   "route": "weighted_NEI",
+   "score": 0.32302998379799425
+  },
+  {
+   "query": 57,
+   "candidate": "f09_17",
+   "route": "weighted_NEI",
+   "score": 0.02872025587299671
+  },
+  {
+   "query": 58,
+   "candidate": "f45_30",
+   "route": "weighted_NEI",
+   "score": 0.028348817254868222
+  },
+  {
+   "query": 59,
+   "candidate": "f06_37",
+   "route": "weighted_NEI",
+   "score": 0.02854654351232928
+  },
+  {
+   "query": 60,
+   "candidate": "f14_31",
+   "route": "weighted_NEI",
+   "score": 0.030482108150162966
+  },
+  {
+   "query": 61,
+   "candidate": "f39_28",
+   "route": "weighted_NEI",
+   "score": 0.028229080335748245
+  },
+  {
+   "query": 62,
+   "candidate": "f23_00",
+   "route": "weighted_NEI",
+   "score": 0.03129643315086179
+  },
+  {
+   "query": 63,
+   "candidate": "f45_11",
+   "route": "weighted_NEI",
+   "score": 0.02754553031190426
+  },
+  {
+   "query": 64,
+   "candidate": "f22_28",
+   "route": "weighted_NEI",
+   "score": 0.02892218468278349
+  }
+ ],
+ "recommendations": {
+  "32": "f23_10",
+  "48": "f23_10",
+  "64": "f23_10"
+ },
+ "recovery_traces": {
+  "32": 126,
+  "48": 126,
+  "64": 126
+ },
+ "cpa_batches": 1,
+ "cpa_traces_per_batch": 1024
+}

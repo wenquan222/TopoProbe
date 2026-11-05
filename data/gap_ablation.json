@@ -1,0 +1,74 @@
+{
+ "A_capacitor_fixed": {
+  "first_success_traces": [
+   null,
+   8192,
+   8192
+  ],
+  "gap_mm": [
+   1.179,
+   1.191,
+   1.189
+  ]
+ },
+ "A_capacitor_follow": {
+  "first_success_traces": [
+   2048,
+   3072,
+   3072
+  ],
+  "gap_mm": [
+   0.496,
+   0.501,
+   0.499
+  ]
+ },
+ "B_low_board_fixed": {
+  "first_success_traces": [
+   3072,
+   6144,
+   4096
+  ],
+  "gap_mm": [
+   2.014,
+   2.023,
+   2.022
+  ]
+ },
+ "B_low_board_follow": {
+  "first_success_traces": [
+   256,
+   512,
+   256
+  ],
+  "gap_mm": [
+   0.491,
+   0.501,
+   0.5
+  ]
+ },
+ "C_chip_top_fixed": {
+  "first_success_traces": [
+   2048,
+   1536,
+   2048
+  ],
+  "gap_mm": [
+   0.501,
+   0.496,
+   0.503
+  ]
+ },
+ "C_chip_top_follow": {
+  "first_success_traces": [
+   1536,
+   2048,
+   2048
+  ],
+  "gap_mm": [
+   0.501,
+   0.503,
+   0.496
+  ]
+ }
+}
