@@ -9,7 +9,7 @@ terrain-guided Bayesian optimization (TopoBO).
 ## Results
 
 STM32F429 software AES, 1748 candidate positions on a 1 mm grid, all searches at a 1 mm local gap with
-the same map and executor, five runs per method. Mean number of traces to full-key recovery at the
+the same executor, five runs per method. Mean number of traces to full-key recovery at the
 recommended position (lower is better):
 
 | Method | 32 queries | 48 queries | 64 queries |
@@ -17,7 +17,7 @@ recommended position (lower is better):
 | SCNIFFER | 363.4 | 363.4 | 363.4 |
 | Swarm in EM Hay | 1180.2 | 1841.2 | 1868.8 |
 | Terrain-free BO (ablation) | 105.2 | 102.8 | 97.0 |
-| **TopoProbe** | 172.6 | **80.2** | **50.6** |
+| **TopoProbe** | 127.6 | **44.8** | **35.6** |
 
 Gap ablation (fixed probe plane vs. surface following, 0.5 mm gap, first checkpoint with all 16 key
 bytes ranked first, three repetitions):
@@ -46,8 +46,10 @@ topoprobe/
   scan.py          on-the-fly laser surface scan (one constant-speed X line per Y row)
   surface.py       height map from raw laser frames, local-median field, registration to the stage (Eq. 1),
                    1 mm candidate grid
-  topobo.py        TopoBO: terrain groups and priority, initialization, Gibbs-kernel GP, noisy EI,
-                   coverage-weighted selection (Eqs. 2-4, 6-10); terrain-free ablation = priority 0, uniform start
+  terrain.py       terrain classes from the height map (IC boundary, near-IC part, IC top, other small part,
+                   other part, bare board)
+  topobo.py        TopoBO: class priority, class-allocated initialization, Gibbs-kernel GP, noisy EI,
+                   coverage-weighted selection with a fading class bonus; terrain-free ablation = priority 0, uniform start
   baselines.py     SCNIFFER and Swarm in EM Hay on the same grid
   leakage.py       SNR search score (Eq. 5), first-round CPA, traces to full-key recovery, capture loader
   hardware.py      stage, laser, AES target with PicoScope capture, terrain-following executor
@@ -64,16 +66,17 @@ data/
   gap_ablation.json  table of the gap ablation
 ```
 
-Run records are named `<method>_run<k>.json`. The TopoProbe and Swarm runs with the same k ran in the same
-session, as did SCNIFFER run 4. The SCNIFFER score and the TopoProbe score are the same (median over the 16
+Run records are named `<method>_run<k>.json`. Swarm run k and SCNIFFER run 4 ran in sessions shared with
+earlier experiments; the TopoProbe runs ran in a later session after a laser-only re-registration
+(`registration_topoprobe_runs` in `setup.json` and `registration` in each TopoProbe record). The SCNIFFER score and the TopoProbe score are the same (median over the 16
 key bytes of the peak Hamming-weight SNR); Swarm uses its own entropy contrast score.
 
 Recovery traces come from one fresh validation batch at each recommended position: 8192 traces for the
-TopoProbe and Swarm recommendations of runs 1-3, 4096 for the other Swarm runs, and 1024 otherwise
+Swarm recommendations of runs 1-3, 4096 for the other Swarm runs, and 1024 otherwise
 (`validation_traces` in each record).
 
-Candidate heights in the run records include a common session correction of +0.00308 mm relative to
-`candidates.csv`, measured at the reference sites before the runs.
+Candidate heights of the baseline and terrain-free runs include a common session correction of +0.00308 mm
+relative to `candidates.csv`, measured at the reference sites before the runs.
 
 ## Not included
 

@@ -6,7 +6,7 @@
     python -m topoprobe.run --method swarm     --seed 2026110304 --out runs/g4_sw
 
 Inputs (paths in --setup JSON): the registered candidate table (results/surface/candidates.csv),
-the signed distance of each candidate to the chip plateau (same table), the probe Z constant z_ref
+the positioning height map (data/height_map.npz, for the terrain classes), the probe Z constant z_ref
 and the cleared EM rectangle. Every query: move at map height + 1 mm, acquire 1024 traces, score.
 Recommendations at 32/48/64 queries are validated with fresh traces; the recovery count is
 leakage.recovery_traces. All motion stops on any check failure, leaving the probe raised.
@@ -16,7 +16,7 @@ from pathlib import Path
 
 import numpy as np
 
-from . import baselines, leakage, topobo
+from . import baselines, leakage, terrain, topobo
 from .hardware import Executor, Stage, capture
 
 BUDGETS = (32, 48, 64)
@@ -29,13 +29,13 @@ def load_candidates(path):
     em_xy = np.array([[float(r['em_x_mm']), float(r['em_y_mm'])] for r in rows])
     map_xy = np.array([[float(r['map_x_mm']), float(r['map_y_mm'])] for r in rows])
     h = np.array([float(r['height_mm']) for r in rows])
-    chip = np.array([float(r['signed_chip_dist_mm']) for r in rows])
-    return ids, em_xy, map_xy, h, chip
+    return ids, em_xy, map_xy, h
 
 
-def make_policy(method, ids, em_xy, map_xy, chip, seed):
+def make_policy(method, ids, em_xy, map_xy, classes, seed):
     if method == 'topoprobe':
-        return topobo.TopoBO(ids, em_xy, topobo.terrain_priority(chip), topobo.initial_positions(ids, em_xy, chip, seed))
+        return topobo.TopoBO(ids, em_xy, topobo.terrain_priority(classes), topobo.initial_positions(ids, em_xy, classes, seed),
+                             classes=classes)
     if method == 'plainbo':
         return topobo.TopoBO(ids, em_xy, np.zeros(len(ids)), topobo.uniform_initial_positions(len(ids), seed))
     if method == 'scniffer':
@@ -56,9 +56,10 @@ def main():
     setup = json.loads(Path(a.setup).read_text(encoding='utf-8'))
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=False)
-    ids, em_xy, map_xy, h, chip = load_candidates(setup['candidates'])
+    ids, em_xy, map_xy, h = load_candidates(setup['candidates'])
+    classes = terrain.classes_from_map(setup['height_map'], map_xy)
     where = {c: i for i, c in enumerate(ids)}
-    policy = make_policy(a.method, ids, em_xy, map_xy, chip, a.seed)
+    policy = make_policy(a.method, ids, em_xy, map_xy, classes, a.seed)
     stage = Stage(box=setup['motion_box'])
     ex = Executor(stage, setup['z_ref_mm'], setup['em_box'])
     entropy = baselines.EntropyScore() if a.method == 'swarm' else None

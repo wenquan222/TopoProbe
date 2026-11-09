@@ -14,7 +14,7 @@ from threadpoolctl import threadpool_limits
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from topoprobe import baselines, topobo  # noqa: E402
+from topoprobe import baselines, terrain, topobo  # noqa: E402
 
 DATA = ROOT / 'data'
 
@@ -25,17 +25,18 @@ def load_candidates():
     ids = [r['id'] for r in rows]
     em = np.array([[float(r['em_x_mm']), float(r['em_y_mm'])] for r in rows])
     mp = np.array([[float(r['map_x_mm']), float(r['map_y_mm'])] for r in rows])
-    chip = np.array([float(r['signed_chip_dist_mm']) for r in rows])
-    return ids, em, mp, chip
+    classes = terrain.classes_from_map(DATA / 'height_map.npz', mp)
+    return ids, em, mp, classes
 
 
-def replay(run, ids, em, mp, chip):
+def replay(run, ids, em, mp, classes):
     q = run['queries']
     seed = run['seed']
     got = []
     if run['method'] in ('topoprobe', 'terrain_free_bo'):
         if run['method'] == 'topoprobe':
-            p = topobo.TopoBO(ids, em, topobo.terrain_priority(chip), topobo.initial_positions(ids, em, chip, seed))
+            p = topobo.TopoBO(ids, em, topobo.terrain_priority(classes), topobo.initial_positions(ids, em, classes, seed),
+                              classes=classes)
         else:
             p = topobo.TopoBO(ids, em, np.zeros(len(ids)), topobo.uniform_initial_positions(len(ids), seed))
         hist = [(r['candidate'], r['score']) for r in q]
@@ -61,13 +62,13 @@ def replay(run, ids, em, mp, chip):
 
 
 def main():
-    ids, em, mp, chip = load_candidates()
+    ids, em, mp, classes = load_candidates()
     runs = sorted((DATA / 'runs').glob('*_run*.json'))
     ok_all, means = True, {}
     with threadpool_limits(limits=1):
         for f in runs:
             run = json.loads(f.read_text())
-            qok, rok = replay(run, ids, em, mp, chip)
+            qok, rok = replay(run, ids, em, mp, classes)
             ok_all &= qok and rok
             print(f'{f.stem:24s} queries {"ok" if qok else "MISMATCH"}  recommendations {"ok" if rok else "MISMATCH"}', flush=True)
             means.setdefault(run['method'], []).append(run['recovery_traces'])

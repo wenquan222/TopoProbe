@@ -58,5 +58,25 @@
  "candidates": "data/candidates.csv",
  "validation_traces": {
   "swarm": 4096
+ },
+ "height_map": "data/height_map.npz",
+ "registration_topoprobe_runs": {
+  "parameters": [
+   0.44283568649912547,
+   2.110455214753814,
+   -24.392699029247684,
+   -0.24491526535310507,
+   -0.00022758948836700595,
+   0.0007716044998513175
+  ],
+  "order": [
+   "dx_mm",
+   "dy_mm",
+   "dz_mm",
+   "rotation_degrees",
+   "z_slope_x",
+   "z_slope_y"
+  ],
+  "note": "laser-only session re-registration before the TopoProbe runs; the search model uses the candidate coordinates of candidates.csv, and the probe moved to the same board positions under these parameters"
  }
 }

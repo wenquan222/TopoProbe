@@ -1,15 +1,14 @@
 """TopoBO: terrain-guided Bayesian-optimization search over board positions.
 
 Implements Section III-C of the paper:
-  * terrain groups and priority g(p)                      (Eqs. 2, 4)
-  * terrain-stratified farthest-point initialization       (Eq. 3)
-  * Gibbs-kernel GP with terrain-shortened length scale   (Eqs. 6-7)
-  * noisy expected improvement over the joint posterior   (Eq. 8)
-  * coverage-weighted selection                            (Eqs. 9-10)
+  * terrain classes from the height map (terrain.py) and per-class priority g(p)
+  * initialization that allocates the first queries to the terrain classes
+  * Gibbs-kernel GP with terrain-shortened length scale
+  * noisy expected improvement over the joint posterior
+  * coverage-weighted selection with a per-class exploration bonus that fades as a class is measured
 
 `TopoBO(..., priority=zeros, initial=uniform)` is the terrain-free ablation of Section IV-C.
-All arithmetic follows the code that produced the paper's runs; `checks/replay_all.py`
-confirms that every recorded query of the ten TopoProbe and terrain-free runs is reproduced.
+`checks/replay_all.py` confirms that every recorded query of the TopoProbe and terrain-free runs is reproduced.
 """
 import numpy as np
 from scipy.linalg import cho_factor, cho_solve, cholesky, solve_triangular
@@ -18,60 +17,55 @@ from scipy.special import log_ndtr, logsumexp, ndtri
 from scipy.stats import qmc
 
 # Parameters used in the paper (Section IV-A, "TopoProbe configuration").
-EDGE_BAND_MM = 1.0      # r: interior is d_C > r, exterior edge is -r <= d_C <= 0
-QUOTA = 6               # Q: interior and edge picks each; n0 = 4 + 2Q = 16
+PERSISTENT = (0, 1, 2)                       # IC boundary, near-IC part, IC top (terrain.CLASSES)
+QUOTAS = {0: 3, 1: 3, 2: 3, 3: 2, 4: 2, 5: 3}  # initial queries per class; n0 = 16
 ELL_MIN_MM, ELL_MAX_MM = 0.5, 2.0
 TAU = 0.0022379412504050632   # fixed score noise (jackknife median)
 XI = 0.01               # improvement margin
 SOBOL_POWER = 8         # M = 2**8 = 256 Sobol draws
 RC_MM = 2.0             # coverage radius
 A_WEIGHT = B_WEIGHT = 4.0
+BETA = 4.0              # class exploration bonus
 NEI_SEED_BASE = 2026102601
 
 
 # ---------------------------------------------------------------- terrain
-def terrain_groups(chip_dist, r=EDGE_BAND_MM):
-    """Interior T and exterior-edge E from the signed distance to the chip plateau (positive inside)."""
-    chip_dist = np.asarray(chip_dist, float)
-    return chip_dist > r, (chip_dist >= -r) & (chip_dist <= 0)
+def terrain_priority(classes, quotas=QUOTAS, persistent=PERSISTENT):
+    """g = (Q_R / |R|) / max over persistent classes on persistent classes, 0 elsewhere."""
+    classes = np.asarray(classes, int)
+    size = np.bincount(classes, minlength=6)
+    g = np.array([quotas[t] / size[t] if t in persistent and size[t] else 0. for t in range(len(size))])
+    return (g / g.max())[classes]
 
 
-def terrain_priority(chip_dist, quota=QUOTA, r=EDGE_BAND_MM):
-    """Eq. 4: g = 1 on the smaller group, |E|/|T| (or |T|/|E|) on the larger, 0 elsewhere."""
-    top, edge = terrain_groups(chip_dist, r)
-    g = quota / top.sum() * top + quota / edge.sum() * edge
-    return g / g.max()
-
-
-def initial_positions(ids, xy, chip_dist, seed, quota=QUOTA, r=EDGE_BAND_MM):
-    """Four seeded quadrant points, then `quota` interior and `quota` edge picks, each the
-    farthest (normalized XY) from those already chosen, requested quadrant rotating in seeded order."""
-    xy = np.asarray(xy, float)
+def initial_positions(ids, xy, classes, seed, quotas=QUOTAS):
+    """Classes take turns until each has its quota; the first pick of a class is seeded random, later picks are
+    the unmeasured point of the class farthest (normalized XY) from those already chosen, ties by ID."""
+    ids, xy, classes = list(ids), np.asarray(xy, float), np.asarray(classes, int)
     norm = (xy - xy.min(0)) / np.ptp(xy, axis=0)
-    quad = (norm[:, 0] >= .5).astype(int) + 2 * (norm[:, 1] >= .5).astype(int)
-    top, edge = terrain_groups(chip_dist, r)
     rng = np.random.default_rng(seed)
-    order = rng.permutation(4)
-    chosen = [int(rng.choice(np.flatnonzero(quad == q))) for q in order]
-    for step in range(2 * quota):
-        group = top if step % 2 == 0 else edge
-        target = (step // 2) % 4
-        available = np.ones(len(ids), bool)
-        available[chosen] = False
-        available &= group
-        for shift in range(4):
-            pool = np.flatnonzero(available & (quad == order[(target + shift) % 4]))
-            if len(pool):
-                break
-        else:
-            raise ValueError('terrain group exhausted')
-        d = ((norm[pool, None] - norm[chosen][None, :]) ** 2).sum(2).min(1)
-        tied = pool[abs(d - d.max()) <= 1e-14]
-        chosen.append(min(tied.tolist(), key=lambda j: ids[j]))
+    rng.permutation(4)                      # keeps the random stream used in the experiments
+    chosen, left = [], dict(quotas)
+    while any(left.values()):
+        for t in sorted(quotas):
+            if not left[t]:
+                continue
+            left[t] -= 1
+            available = np.ones(len(ids), bool)
+            available[chosen] = False
+            pool = np.flatnonzero(available & (classes == t))
+            if not len(pool):
+                continue
+            if not (classes[chosen] == t).any():
+                chosen.append(int(rng.choice(pool)))
+                continue
+            d = ((norm[pool, None] - norm[chosen][None, :]) ** 2).sum(2).min(1)
+            tied = pool[abs(d - d.max()) <= 1e-14]
+            chosen.append(min(tied.tolist(), key=lambda j: ids[j]))
     return chosen
 
 
-def uniform_initial_positions(n_candidates, seed, n0=4 + 2 * QUOTA):
+def uniform_initial_positions(n_candidates, seed, n0=16):
     """Initialization of the terrain-free ablation."""
     return np.random.default_rng(seed).choice(n_candidates, n0, replace=False).astype(int).tolist()
 
@@ -93,7 +87,7 @@ def _factor(matrix):
 
 
 class ScaleGP:
-    """GP with Gibbs covariance, local scale ell_p = ell_0 / (1 + g(p)) (Eq. 6), fixed noise TAU.
+    """GP with Gibbs covariance, local scale ell_p = ell_0 / (1 + g(p)), fixed noise TAU.
 
     Free hyperparameters: log ell_0 (normalized units) and log sigma_f, fitted by marginal likelihood
     from two predetermined starts. theta keeps the 12-slot layout of the original implementation so
@@ -197,7 +191,7 @@ def log_ei(gain, std):
 
 
 def noisy_ei(model, remaining, xi=XI, seed=1, sobol_power=SOBOL_POWER):
-    """Eq. 8: average analytic EI over 2**sobol_power joint draws of the latent scores at measured sites."""
+    """Average analytic EI over 2**sobol_power joint draws of the latent scores at measured sites."""
     base = model.train
     mb, _ = model.predict(base)
     mc, sc = model.predict(remaining)
@@ -221,13 +215,14 @@ def noisy_ei(model, remaining, xi=XI, seed=1, sobol_power=SOBOL_POWER):
 class TopoBO:
     """Chooses the next position from the measurement history [(candidate_id, score), ...]."""
 
-    def __init__(self, ids, xy_mm, priority, initial, a=A_WEIGHT, b=B_WEIGHT, rc=RC_MM):
+    def __init__(self, ids, xy_mm, priority, initial, classes=None, a=A_WEIGHT, b=B_WEIGHT, rc=RC_MM, beta=BETA):
         self.ids = list(ids)
         self.index = {c: i for i, c in enumerate(self.ids)}
         self.xy = np.asarray(xy_mm, float)
         self.g = np.asarray(priority, float)
         self.initial = list(initial)
-        self.a, self.b, self.rc = a, b, rc
+        self.classes = None if classes is None else np.asarray(classes, int)
+        self.a, self.b, self.rc, self.beta = a, b, rc, beta
 
     def choose(self, history):
         n = len(history)
@@ -241,6 +236,9 @@ class TopoBO:
         logs, _, _ = noisy_ei(model, remaining, seed=NEI_SEED_BASE + n)
         dist = np.sqrt(((self.xy[remaining, None] - self.xy[rows][None, :]) ** 2).sum(2)).min(1)
         coverage = 1 - np.exp(-dist ** 2 / (2 * self.rc ** 2))
-        utility = logs + np.log(1 + self.g[remaining] * (self.a + self.b * coverage))   # Eq. 10
+        utility = logs + np.log(1 + self.g[remaining] * (self.a + self.b * coverage))
+        if self.classes is not None:                                                    # class exploration bonus
+            n_r = np.bincount(self.classes[rows], minlength=self.classes.max() + 1)
+            utility = utility + np.log(1 + self.beta / (1 + n_r[self.classes[remaining]]))
         ties = np.flatnonzero(utility.max() - utility <= 1e-10)
         return self.ids[int(remaining[min(ties.tolist(), key=lambda k: self.ids[remaining[k]])])]
