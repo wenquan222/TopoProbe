@@ -1,4 +1,4 @@
-"""Gap ablation of Section II-A: fixed probe plane versus surface following at the same three sites.
+"""Gap ablation of Section IV-C1: fixed probe plane versus surface following at the same three sites.
 
 For each site and each of three repetitions, both modes are measured in a predetermined order:
   fixed    probe Z set by the chip-top height + gap (one plane for all sites)
@@ -7,6 +7,8 @@ Gap 0.5 mm. Each condition acquires 1024 search traces and 8192 independent vali
 table reports the first checkpoint at which all 16 key bytes rank first (checkpoints 256 ... 8192).
 Sites (stage XY of the EM probe): A capacitor (94.553, 26.19), B low board (94.538, 27.344),
 C chip top (96.378, 42.634).
+Within each repetition and site, both modes use the same plaintext seed. Search and validation
+batches use separate streams. Recorded results in data/ remain the original hardware measurements.
 
     python -m topoprobe.gap_ablation --setup setup.json --out runs/gap
 """
@@ -14,7 +16,6 @@ import argparse, json
 from pathlib import Path
 
 from . import leakage
-from .hardware import Executor, Stage, capture
 
 CHECKPOINTS = [256, 512, 1024, 1536, 2048, 3072, 4096, 6144, 8192]
 ORDERS = {1: [('A_capacitor', 'fixed'), ('B_low_board', 'follow'), ('C_chip_top', 'fixed'), ('A_capacitor', 'follow'),
@@ -23,6 +24,16 @@ ORDERS = {1: [('A_capacitor', 'fixed'), ('B_low_board', 'follow'), ('C_chip_top'
               ('B_low_board', 'follow'), ('A_capacitor', 'fixed')],
           3: [('B_low_board', 'fixed'), ('C_chip_top', 'follow'), ('A_capacitor', 'fixed'), ('B_low_board', 'follow'),
               ('C_chip_top', 'fixed'), ('A_capacitor', 'follow')]}
+
+SITE_INDEX = {'A_capacitor': 0, 'B_low_board': 1, 'C_chip_top': 2}
+
+
+def paired_seed(repetition, site, batch):
+    """Stable per-site plaintext stream shared by the two height modes."""
+    if repetition < 1:
+        raise ValueError('repetition must be positive')
+    offsets = {'search': 0, 'validation': 500}
+    return 1000000 * repetition + 1000 * SITE_INDEX[site] + offsets[batch]
 
 
 def first_success(x, pt, key):
@@ -33,6 +44,8 @@ def first_success(x, pt, key):
 
 
 def main():
+    from .hardware import Executor, Stage, capture
+
     ap = argparse.ArgumentParser()
     ap.add_argument('--setup', default='setup.json')
     ap.add_argument('--out', required=True)
@@ -48,12 +61,12 @@ def main():
     table = {}
     try:
         for rep, order in ORDERS.items():
-            for k, (site, mode) in enumerate(order):
+            for site, mode in order:
                 s = sites[site]
                 h = s['height_mm'] if mode == 'follow' else chip_h       # fixed plane: chip top + gap
                 ex.go(s['em_xy_mm'], h, a.gap)
-                capture(out / f'rep{rep}_{site}_{mode}_search', 1024, 1000000 * rep + 1000 * k)
-                folder = capture(out / f'rep{rep}_{site}_{mode}_validation', 8192, 1000000 * rep + 1000 * k + 500)
+                capture(out / f'rep{rep}_{site}_{mode}_search', 1024, paired_seed(rep, site, 'search'))
+                folder = capture(out / f'rep{rep}_{site}_{mode}_validation', 8192, paired_seed(rep, site, 'validation'))
                 ex.lift()
                 x, pt, key = leakage.load_capture(folder)
                 table.setdefault(site, {}).setdefault(mode, []).append(first_success(x, pt, key))

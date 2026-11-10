@@ -4,7 +4,7 @@
   height_map(...)          stack lines into the height grid H(y, x), map frame, upward positive
   smooth(H)                local-median positioning field (21 x 5 cells) used for probe heights
   Registration             map frame <-> stage frame: planar shift (dx, dy), rotation about (87, 87) mm,
-                           vertical offset dz and linear tilt (Eq. 1); fitted to laser spot heights
+                           vertical offset dz and linear tilt; fitted to laser spot heights
   candidates(...)          1 mm candidate grid with stage XY of the EM probe and registered height
 
 Scan geometry of the paper: X 64-110 mm, Y 69-106 mm, Y line pitch 0.01 mm, X bins 0.0495 mm
@@ -78,7 +78,7 @@ class Registration:
         return (np.asarray(map_xy, float) - (CENTER + self.p[:2])) @ self.rot.T + CENTER
 
     def height(self, laser_xy):
-        """Eq. 1: registered surface height under a stage laser-spot position."""
+        """Registered surface height used by the gap-control relation in Eq. 1."""
         xy = np.atleast_2d(np.asarray(laser_xy, float))
         tilt = self.p[2] + self.p[4] * (xy[:, 0] - CENTER[0]) + self.p[5] * (xy[:, 1] - CENTER[1])
         return self.interp(self.to_map(xy)[:, ::-1]) + tilt

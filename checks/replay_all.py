@@ -2,7 +2,7 @@
 
 For every one of the 20 runs in data/runs/, the search code in topoprobe/ is replayed with the run's
 seed and recorded scores; each query and each 32/48/64 recommendation must equal the record. The
-five-run means of Tables II and III are then recomputed from the recorded recovery counts.
+five-run means of Tables II and IV are then recomputed from the recorded recovery counts.
 
     python checks/replay_all.py
 """

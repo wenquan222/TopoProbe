@@ -1,11 +1,11 @@
 """Leakage score and key-recovery metric used in the paper.
 
-  score(x, pt, key)         Eq. 5: median over the 16 key bytes of the peak first-round S-box
+  score(x, pt, key)         Eq. 2: median over the 16 key bytes of the peak first-round S-box
                              Hamming-weight SNR (search score of TopoProbe and SCNIFFER)
   cpa_full_key(x, pt, key)   first-round HW CPA; True when all 16 true key bytes rank first
-  recovery_traces(...)       attack metric of Section IV-A: smallest trace count from which the
-                             full key ranks first at every later checkpoint, located to one trace
-                             by bisection between the last failing and first succeeding checkpoint
+  recovery_traces(...)       attack metric of Section IV-A: first successful checkpoint followed by
+                             success at all later tested checkpoints, then binary refinement between
+                             the preceding failed checkpoint and that successful checkpoint
   preprocess(...)            baseline subtraction (-1.8..-0.2 us) and analysis window (0..20 us)
 
 Traces are traces-by-samples arrays in mV with a time axis in microseconds relative to the trigger.
@@ -92,7 +92,7 @@ def snr(traces, labels):
 
 
 def score(traces, pt, key, n=1024):
-    """Eq. 5 on the first n traces."""
+    """Eq. 2 on the first n traces."""
     pt = np.asarray(pt)
     peaks = [float(np.nanmax(snr(traces[:n], HW[SBOX[pt[:n, b] ^ key[b]]]))) for b in range(16)]
     return float(np.median(peaks))
@@ -125,7 +125,11 @@ def cpa_full_key(traces, pt, key, chunk=256):
 
 
 def recovery_traces(traces, pt, key, checkpoints=CHECKPOINTS):
-    """Attack metric. Returns None if the batch never sustains full-key recovery."""
+    """Refine a checkpoint-based recovery threshold to a one-trace bracket.
+
+    Find the first checkpoint whose later tested checkpoints all recover the full key, then bisect
+    the bracket ending at that checkpoint. The reported count is the successful upper endpoint.
+    """
     counts = [c for c in checkpoints if c <= len(traces)]
     ok = [cpa_full_key(traces[:c], pt[:c], key) for c in counts]
     first = next((i for i in range(len(ok)) if all(ok[i:])), None)
