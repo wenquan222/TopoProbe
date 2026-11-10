@@ -1,0 +1,28 @@
+{
+  "surface_scan": {
+    "active_seconds": 40895.280999999995,
+    "elapsed_seconds": 42394.736,
+    "pause_seconds": 1499.4550000000017,
+    "active_hours": 11.359800277777776,
+    "elapsed_hours": 11.776315555555556,
+    "accepted_rows": 3701,
+    "row_pitch_mm": 0.01,
+    "attempts": 3750,
+    "failed_attempts": 49,
+    "acquisition_log_sha256": "4c7e7fa179fa6dda57d9eb06763aed95c7e99ff7e05b15330d161a9a82e55412",
+    "raw_height_map_sha256": "e3db6b942bf2808bfd25b92b340e52afe232d6943e01e7d9b8f5628b10a043d1"
+  },
+  "registration_fit": {
+    "seconds": 4.06109249999281,
+    "scope": "Computation after reference measurements",
+    "source_sha256": "b8395e857ab68a08c16291327ec9253fc825b5cf9043947bde4c8a06a391e6af"
+  },
+  "preparation_components": [
+    "surface acquisition",
+    "reference-point measurements",
+    "registration fitting",
+    "operator checks"
+  ],
+  "reference_and_operator_time": null,
+  "reference_and_operator_time_status": "No consolidated elapsed-time record identified"
+}

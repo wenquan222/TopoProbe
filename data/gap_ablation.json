@@ -1,74 +1,122 @@
 {
- "A_capacitor_fixed": {
-  "first_success_traces": [
-   null,
-   8192,
-   8192
-  ],
-  "gap_mm": [
-   1.179,
-   1.191,
-   1.189
-  ]
- },
- "A_capacitor_follow": {
-  "first_success_traces": [
-   2048,
-   3072,
-   3072
-  ],
-  "gap_mm": [
-   0.496,
-   0.501,
-   0.499
-  ]
- },
- "B_low_board_fixed": {
-  "first_success_traces": [
-   3072,
-   6144,
-   4096
-  ],
-  "gap_mm": [
-   2.014,
-   2.023,
-   2.022
-  ]
- },
- "B_low_board_follow": {
-  "first_success_traces": [
-   256,
-   512,
-   256
-  ],
-  "gap_mm": [
-   0.491,
-   0.501,
-   0.5
-  ]
- },
- "C_chip_top_fixed": {
-  "first_success_traces": [
-   2048,
-   1536,
-   2048
-  ],
-  "gap_mm": [
-   0.501,
-   0.496,
-   0.503
-  ]
- },
- "C_chip_top_follow": {
-  "first_success_traces": [
-   1536,
-   2048,
-   2048
-  ],
-  "gap_mm": [
-   0.501,
-   0.503,
-   0.496
-  ]
- }
+  "A_capacitor_fixed": {
+    "first_success_traces": [
+      null,
+      8192,
+      8192
+    ],
+    "gap_mm": [
+      1.179,
+      1.191,
+      1.189
+    ],
+    "recovery_traces": [
+      null,
+      7884,
+      7534
+    ],
+    "mean_recovery_traces_capped": 7870.0,
+    "recovery_metric": "See gap_ablation_refined.json: sustained tested checkpoint followed by one-trace refinement",
+    "acquisition_limit": 8192
+  },
+  "A_capacitor_follow": {
+    "first_success_traces": [
+      2048,
+      3072,
+      3072
+    ],
+    "gap_mm": [
+      0.496,
+      0.501,
+      0.499
+    ],
+    "recovery_traces": [
+      1877,
+      2729,
+      2097
+    ],
+    "mean_recovery_traces_capped": 2234.3333333333335,
+    "recovery_metric": "See gap_ablation_refined.json: sustained tested checkpoint followed by one-trace refinement",
+    "acquisition_limit": 8192
+  },
+  "B_low_board_fixed": {
+    "first_success_traces": [
+      3072,
+      6144,
+      4096
+    ],
+    "gap_mm": [
+      2.014,
+      2.023,
+      2.022
+    ],
+    "recovery_traces": [
+      3009,
+      4193,
+      3445
+    ],
+    "mean_recovery_traces_capped": 3549.0,
+    "recovery_metric": "See gap_ablation_refined.json: sustained tested checkpoint followed by one-trace refinement",
+    "acquisition_limit": 8192
+  },
+  "B_low_board_follow": {
+    "first_success_traces": [
+      256,
+      512,
+      256
+    ],
+    "gap_mm": [
+      0.491,
+      0.501,
+      0.5
+    ],
+    "recovery_traces": [
+      206,
+      293,
+      235
+    ],
+    "mean_recovery_traces_capped": 244.66666666666666,
+    "recovery_metric": "See gap_ablation_refined.json: sustained tested checkpoint followed by one-trace refinement",
+    "acquisition_limit": 8192
+  },
+  "C_chip_top_fixed": {
+    "first_success_traces": [
+      2048,
+      1536,
+      2048
+    ],
+    "gap_mm": [
+      0.501,
+      0.496,
+      0.503
+    ],
+    "recovery_traces": [
+      1872,
+      1352,
+      3133
+    ],
+    "mean_recovery_traces_capped": 2119.0,
+    "recovery_metric": "See gap_ablation_refined.json: sustained tested checkpoint followed by one-trace refinement",
+    "acquisition_limit": 8192
+  },
+  "C_chip_top_follow": {
+    "first_success_traces": [
+      1536,
+      2048,
+      2048
+    ],
+    "gap_mm": [
+      0.501,
+      0.503,
+      0.496
+    ],
+    "recovery_traces": [
+      1387,
+      1774,
+      2024
+    ],
+    "mean_recovery_traces_capped": 1728.3333333333333,
+    "recovery_metric": "See gap_ablation_refined.json: sustained tested checkpoint followed by one-trace refinement",
+    "acquisition_limit": 8192
+  }
 }
